@@ -1,0 +1,762 @@
+/*
+ * Willow.js - JSON Tree Viewer
+ * Author: Marcelo A. Paciulli
+ * Version: 1.0.0
+ */
+
+
+:root {
+    --bg: #000000;
+    --text: #00ff9c;
+    --border: rgba(0, 255, 156, 0.4);
+    --hover-bg: rgba(0, 255, 156, 0.12);
+    --hover-text: #00ff9c;
+    --glass: rgba(255, 255, 255, 0.01);
+    --shadow: 0 4px 20px rgba(0, 255, 156, 0.08);
+    --radius: 8px;
+}
+
+body.light {
+    --bg: #ffffff;
+    --text: #000000;
+    --border: rgba(0, 0, 0, 0.2);
+    --hover-bg: rgba(0, 0, 0, 0.08);
+    --hover-text: #000000;
+    --glass: rgba(255, 255, 255, 0.04);
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+body {
+    font-family: "Courier New", monospace;
+    background: var(--bg);
+    color: var(--text);
+    padding: 15px 25px;
+    position: relative;
+}
+
+
+/* ===== LAYOUT ===== */
+
+#treeWrapper {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    min-height: 80vh;
+
+    border: 1px solid var(--border);
+    background: var(--bg);
+    padding-left: 30px;
+    overflow: auto;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+
+    border-radius: var(--radius);
+}
+
+#tree {
+    flex: 1;
+    max-height: 80vh;
+    overflow: visible;
+    padding: 20px 10px 20px;
+    white-space: nowrap;
+    scroll-padding-left: 40px;
+    background: transparent;
+    position: relative;
+    z-index: 1;
+    -webkit-overflow-scrolling: touch;
+}
+
+#sidePanel {
+    width: 220px;
+    min-width: 180px;
+    max-width: 260px;
+
+    flex-shrink: 0;
+
+    border-left: 1px solid var(--border);
+    background: var(--bg);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    max-height: 80vh;
+    overflow: hidden;
+}
+
+#sidePanel img {
+    max-width: 85%;
+    max-height: 85%;
+    object-fit: contain;
+    opacity: 0.75;
+}
+
+/* ===== TREE ===== */
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 22px;
+    position: relative;
+}
+
+ul::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 8px;
+    width: 1px;
+    background: rgba(0, 0, 0, 1);
+    opacity: 0.6;
+}
+
+
+li {
+    margin: 0px 0;
+    line-height: 1.4em;
+    position: relative;
+    white-space: nowrap;
+}
+
+li::after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: -13px;
+    width: 12px;
+    height: 0px;
+    border-top: 1px solid currentColor;
+    opacity: 0.6;
+}
+
+
+li::before {
+    content: attr(data-num);
+    position: absolute;
+    left: -60px;
+    width: 40px;
+    text-align: right;
+    font-weight: bold;
+    color: rgba(255,255,255,0.3);
+}
+
+
+.array-index {
+    color: #ffffff !important;
+}
+
+body.light .array-index {
+    color: #000000 !important;
+}
+
+/* ===== NODE ===== */
+
+.node {
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 2px 0px;
+    transition: background 0.2s ease;
+    user-select: none;
+    position: relative;
+    top: 2px;
+}
+
+.node:hover {
+    background: var(--hover-bg);
+    color: var(--hover-text) !important;
+}
+
+.node:hover *:not(.array-index) {
+    color: var(--hover-text) !important;
+}
+
+.node-icon {
+	margin-left: -2px;  /* mover icono libremente */
+	margin-right: 4px;
+}
+
+.leaf {
+    padding-left: 4px;
+    color: var(--text);
+}
+
+.leaf .key {
+    position: relative;
+    left: -2px;
+}
+
+
+/* ===== TOOLBAR ===== */
+
+.toolbar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 12px;
+    margin-bottom: 12px;
+
+    border: 1px solid var(--border);
+    background: var(--glass);
+
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.toolbar-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.toolbar-row.settings {
+    gap: 14px;
+}
+
+.group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.group label {
+    font-size: 12px;
+}
+
+button,
+input,
+select,
+.node,
+input[type="file"]::file-selector-button {
+    cursor: pointer; 
+}
+
+.file-label {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 6px;
+    cursor: pointer; 
+    transition: background 0.2s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.file-label:hover {
+    background: var(--hover-bg);
+}
+
+body.light .file-label:hover {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+body.light .file-label {
+    color: #000 !important;
+    background: var(--glass);
+}
+
+body.dark .file-label:hover {
+    background: rgba(0, 255, 156, 0.25);
+    color: #ffffff;
+}
+
+body.dark .toolbar button:hover {
+    background: rgba(0, 255, 156, 0.25);
+    color: #ffffff;
+}
+
+.toolbar button {
+    transition: none !important;
+}
+/* ===== BUTTONS ===== */
+
+.toolbar button {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.toolbar button:hover {
+    background: var(--hover-bg);
+}
+
+.toolbar button:active {
+    opacity: 0.7;
+}
+
+/* ===== INPUTS ===== */
+
+.toolbar input,
+.toolbar select {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    transition: none !important;
+}
+
+.toolbar input:focus,
+.toolbar select:focus {
+    outline: none;
+    border: 1px solid var(--text);
+}
+
+/* ===== SELECT ===== */
+
+.toolbar select {
+    appearance: none;
+    padding: 6px 32px 6px 8px;
+    background-size: 18px;
+    background-color: var(--bg);
+    color: var(--text);
+    transition: none !important;
+
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%2300ff9c' height='10' viewBox='0 0 24 24' width='10'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+body.light .toolbar select {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23000000' height='10' viewBox='0 0 24 24' width='10'><path d='M7 10l5 5 5-5z'/></svg>");
+    color-scheme: light;
+}
+
+/* ===== FILE ===== */
+
+.file-label {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.file-label:hover {
+    background: var(--hover-bg);
+}
+
+/* ===== URL ===== */
+
+.url-group {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.url-group input {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* ===== SCROLL ===== */
+
+#tree::-webkit-scrollbar,
+#treeWrapper::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+#tree::-webkit-scrollbar-thumb,
+#treeWrapper::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 6px;
+}
+
+#tree::-webkit-scrollbar-track,
+#treeWrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* ===== STATES ===== */
+
+#treeWrapper.dragover {
+    background: rgba(0, 255, 156, 0.08);
+    box-shadow: 0 0 0 2px rgba(0, 255, 156, 0.2);
+}
+
+#treeWrapper.empty {
+    border: 1px dashed var(--border);
+    align-items: center;
+    justify-content: center;
+}
+
+#treeWrapper.empty #tree {
+    display: none;
+}
+
+#treeWrapper.empty::before {
+    content: "Drop your JSON here or paste it";
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+}
+
+#treeWrapper.empty::after {
+    content: "or load a JSON file from toolbar / URL";
+    position: absolute;
+    bottom: 16px;
+    font-size: 12px;
+    color: #555;
+}
+
+#treeWrapper.empty.loading::before,
+#treeWrapper.empty.loading::after {
+    display: none;
+}
+
+/* ===== STATS ===== */
+
+#statsBox {
+    position: sticky !important;
+    top: 10px;
+    right: 10px;
+    z-index: 999;
+
+    border: 1px solid var(--border);
+    background: var(--bg);
+
+    color: var(--text);
+    font-size: 12px;
+    padding: 8px 12px;
+    border-radius: 6px;
+
+    flex-shrink: 0;
+}
+
+/* ===== LOGO ===== */
+
+.willow-logo {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+
+    opacity: 1;
+
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ===== ROOT ===== */
+
+.tree-root {
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 80px;
+    color: var(--text);
+}
+
+#treeRoot::before {
+    display: none;
+}
+
+#treeRoot {
+    padding-left: 30px;
+    padding-bottom: 40px;
+}
+
+#treeRoot > li::after {
+    display: none;
+}
+
+#treeRoot > li::before {
+    left: -38px;
+}
+
+body.hide-numbers li::before {
+    display: none !important;
+}
+
+.loading-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.25);
+    border-top: 4px solid #ffffff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+body.dark {
+    color-scheme: dark;
+}
+
+body.light {
+    color-scheme: light;
+}
+
+.toolbar select {
+    transition: none !important;
+}
+
+/* ===== PATH MODAL ===== */
+
+.path-modal {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.25);
+    z-index: 10000;
+}
+
+.path-modal.hidden {
+    display: none;
+}
+
+.path-modal-content {
+    width: 420px;
+    max-width: 90%;
+
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    padding: 16px;
+}
+
+.path-title {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#pathInput {
+    width: 100%;
+    box-sizing: border-box;
+
+    margin-bottom: 12px;
+
+    background: var(--glass);
+    border: 1px solid var(--border);
+    color: var(--text);
+
+    padding: 10px;
+    border-radius: 6px;
+
+    font-family: inherit;
+    font-size: 12px;
+}
+
+.path-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+/* ===== ERROR MODAL ===== */
+
+.error-modal {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(3px);
+    transform: translateZ(0);
+    z-index: 999999;
+}
+
+.error-modal.hidden {
+    display: none;
+}
+
+.error-modal-content {
+    width: 420px;
+    max-width: 90%;
+    background: var(--bg);
+    border: 1px solid rgba(255, 80, 80, 0.4);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 20px rgba(255, 80, 80, 0.15);
+    padding: 16px;
+}
+
+.error-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ff6b6b;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    font-size: 12px;
+    margin-bottom: 12px;
+    color: var(--text);
+}
+
+.error-details {
+    display: block !important;
+    max-height: none !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    font-size: 11px;
+    margin-bottom: 12px;
+}
+
+.error-details pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.error-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.error-details summary {
+    cursor: pointer;
+}
+
+
+.error-actions button {
+    background: var(--glass);
+    border: 1px solid rgba(255, 80, 80, 0.4);
+    color: #ff6b6b;
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.error-actions button:hover {
+    background: rgba(255, 80, 80, 0.08);
+}
+
+body.dark li::after {
+    background: rgba(0, 255, 156, 1);
+    border-top: 1px solid currentColor;
+    opacity: 0.4;
+}
+body.dark ul::before {
+    background: rgba(0, 255, 156, 1);
+    border-top: 1px solid currentColor;
+    opacity: 0.4;
+}
+
+
+/* ===== SCROLL NAVIGATION ===== */
+
+.scroll-nav-btn {
+    position: fixed;
+
+    background: var(--glass);
+    border: 1px solid var(--border);
+    color: var(--text);
+
+    padding: 6px 10px;
+    font-size: 12px;
+
+    border-radius: 6px;
+    box-shadow: var(--shadow);
+
+    transition: background 0.2s ease;
+    pointer-events: auto;
+
+    z-index: 9999;
+}
+
+.scroll-nav-btn:hover {
+    background: var(--hover-bg);
+    color: var(--hover-text);
+}
+
+#btnGoBottom {
+    position: static;
+    top: 165px;
+    right: 26px;
+}
+
+body.dark .scroll-nav-btn:hover {
+    background: rgba(0, 255, 156, 0.4) !important;
+    color: #ffffff !important;
+}
+
+#btnGoTop {
+    bottom: 32px;
+    right: 43px;
+}
+
+.app-title {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@font-face {
+    font-family: "Fira Code";
+    src: url("fonts/FiraCode-Regular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Source Code Pro";
+    src: url("fonts/SourceCodePro-Regular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ===== MEDIA ===== */
+
+@media (max-width: 1220px) {
+    .willow-logo {
+        display: none;
+    }
+}
+
+
+@media (max-width: 768px) {
+    #statsBox {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    #statsBox {
+        font-size: 10px;
+    }
+}

@@ -1,0 +1,136 @@
+<!--
+    Willow.js - JSON Tree Viewer
+    Author: Marcelo A. Paciulli
+    Version: 1.0.0
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Willow.js - JSON Tree Visualizer</title>
+    <link rel="stylesheet" href="willow.css">
+</head>
+
+<body>
+
+    <div class="toolbar">
+        <div class="toolbar-row">
+            <button id="btnDark">🌙 Dark</button>
+            <button id="btnLight">☀️ Light</button>
+            <button id="btnExpand">Expand All</button>
+            <button id="btnCollapse">Collapse All</button>
+            <button id="btnUndo">↩️ Undo</button>
+            <button id="btnRedo">↪️ Redo</button>
+            <button id="btnPath">📌 Path</button>
+            <button id="btnTypes">Types</button>
+            <button id="btnBold">Bold</button>
+        </div>
+
+        <div class="toolbar-row">
+            <input type="text" id="search" placeholder="Search...">
+            <label for="fileInput" class="file-label">Select file</label>
+            <input type="file" id="fileInput" accept=".json" hidden>
+            <div class="url-group">
+                <input type="url" id="urlInput" placeholder="https://example.com/data.json">
+                <button id="btnLoadUrl">🌐 Load URL</button>
+            </div>
+        </div>
+
+        <div class="toolbar-row settings">
+            <div class="group">
+                <label>Values color (leaf only):</label>
+                <input type="color" id="colorPicker" value="#000000">
+            </div>
+            <div class="group">
+                <label>Keys color (leaf only):</label>
+                <input type="color" id="keyColorPicker" value="#000000">
+            </div>
+
+            <div class="group">
+                <label>Size:</label>
+                <input type="number" id="fontSize" value="16" min="16" max="21">
+            </div>
+
+            <div class="group">
+                <label>Icon:</label>
+                <select id="iconSelect">
+                    <option value="folder" selected>📁 / 📂 Folder</option>
+                    <option value="plus">➕ / ➖ Plus</option>
+                    <option value="arrow">▶️ / 🔽 Arrow</option>
+                    <option value="terminal">&nbsp;▶ / ▼ Terminal</option>
+                </select>
+            </div>
+
+            <div class="group">
+                <label>Font:</label>
+                <select id="fontSelect">
+                    <option value="Courier New, monospace" selected>Courier</option>
+                    <option value="Consolas, monospace">Consolas</option>
+                    <option value="Lucida Console, monospace">Lucida Console</option>
+                    <option value="'Source Code Pro', monospace">Source Code Pro</option>
+                    <option value="'Fira Code', monospace">Fira Code</option>
+                    <option value="Arial, sans-serif">Arial / Sans Serif</option>
+                    <option value="Comic Sans MS, cursive, sans-serif">Comic Sans</option>
+                    <option value="Times New Roman, serif">Times New Roman</option>
+                    <option value="Verdana, Geneva, sans-serif">Verdana</option>
+                </select>
+            </div>
+        </div>
+        <img src="icons/icon128.png" alt="Willow Logo" class="willow-logo">
+    </div>
+
+
+    <h2 class="app-title">
+        Willow.js (JSON Tree Visualizer)
+        <button id="btnGoBottom" class="scroll-nav-btn">⮟ Go Bottom</button>
+    </h2>
+
+    <button id="btnGoTop" class="scroll-nav-btn">⮝ Go Top</button>
+
+    <div id="treeWrapper" class="empty">
+        <div id="loading" class="loading-overlay hidden">
+            <div class="spinner"></div>
+        </div>
+        <div id="tree">
+            <ul id="treeRoot"></ul>
+        </div>
+    </div>
+
+    <div id="statsBox"></div>
+    <div id="pathModal" class="path-modal hidden">
+        <div class="path-modal-content">
+            <div class="path-title">Current Path</div>
+
+            <input type="text" id="pathInput" readonly>
+
+            <div class="path-actions">
+                <button id="copyPathBtn">Copy</button>
+                <button id="closePathBtn">Close</button>
+            </div>
+        </div>
+    </div>
+    <div id="errorModal" class="error-modal hidden">
+        <div class="error-modal-content">
+            <div id="errorMessage" class="error-message">
+                The JSON could not be parsed.
+            </div>
+
+            <details class="error-details" open>
+                <summary>Technical details</summary>
+                <pre id="errorDetailsText"></pre>
+            </details>
+
+            <div class="error-actions">
+                <button id="closeErrorBtn">Close</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="willow.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Willow.js - JSON Tree Viewer",
+  "version": "1.0.0",
+  "author": "Marcelo A. Paciulli",
+  "description": "An interactive JSON tree viewer with expand/collapse navigation, undo/redo support, and customizable visualization options.",
+
+  "action": {
+    "default_title": "Willow.js"
+  },
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "permissions": [
+    "storage"
+  ],
+ 
+  "homepage_url": "https://www.linkedin.com/in/marcelo-paciulli/",
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
