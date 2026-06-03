@@ -34,7 +34,7 @@ Interactive JSON Tree Viewer built for simple or complex deeply nested JSON stru
 
 ---
 
-## Deeply Nested JSON Visualization
+## Large JSON Navigation
 
 <br>
 
@@ -74,7 +74,7 @@ Interactive JSON Tree Viewer built for simple or complex deeply nested JSON stru
 
 ---
 
-## Large JSON Navigation
+## Deeply Nested JSON Visualization
 
 <br>
 
