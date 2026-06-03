@@ -54,7 +54,7 @@ Interactive JSON Tree Viewer built for simple or complex deeply nested JSON stru
 
 ---
 
-## Statistics Panel
+## Search Functionality
 
 <br>
 
