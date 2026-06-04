@@ -16,7 +16,16 @@
   "permissions": [
     "storage"
   ],
- 
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "fonts/*.woff2"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+
   "homepage_url": "https://www.linkedin.com/in/marcelo-paciulli/",
 
   "icons": {

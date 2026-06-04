@@ -478,8 +478,25 @@ function updateKeyColor() {
 		.forEach(el => el.style.color = currentKeyColor);
 }
 
-
 function updateFontSize() {
+	let val = parseInt(document.getElementById("fontSize").value);
+
+	if (val > MAX_FONT_SIZE) val = MAX_FONT_SIZE;
+	if (val < MIN_FONT_SIZE) val = MIN_FONT_SIZE;
+
+	currentFontSize = val;
+
+	document.getElementById("fontSize").value = val;
+
+	document.querySelectorAll(
+		".node, .leaf span, .array-index, .array-value"
+	).forEach(el => {
+		el.style.fontSize = currentFontSize + "px";
+	});
+}
+
+
+function updateFontSizeeeee() {
 	let val = parseInt(document.getElementById("fontSize").value);
 
 	if (val > MAX_FONT_SIZE) val = MAX_FONT_SIZE;
@@ -494,6 +511,18 @@ function updateFontSize() {
 }
 
 function updateFontFamily() {
+	currentFontFamily = document.getElementById("fontSelect").value;
+
+	localStorage.setItem("jsonFontFamily", currentFontFamily);
+
+	document.querySelectorAll(
+		".node, .leaf span, .array-index, .array-value"
+	).forEach(el => {
+		el.style.fontFamily = currentFontFamily;
+	});
+}
+
+function updateFontFamilyee() {
 	currentFontFamily = document.getElementById("fontSelect").value;
 	localStorage.setItem("jsonFontFamily", currentFontFamily);
 
