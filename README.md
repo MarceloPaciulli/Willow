@@ -8,7 +8,7 @@ Interactive JSON Tree Viewer built for simple or complex deeply nested JSON stru
 
 <br>
 
-<img width="1325" height="626" alt="Dark Mode" src="https://github.com/user-attachments/assets/65662326-3304-44a5-887c-97d499b2e6c2" />
+<img width="1344" height="625" alt="image" src="https://github.com/user-attachments/assets/30a1543c-6336-4bde-8896-51a8cb28e714" />
 
 <br><br>
 
