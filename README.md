@@ -8,7 +8,7 @@ Interactive JSON Tree Viewer built for simple or complex deeply nested JSON stru
 
 <br>
 
-<img width="1344" height="625" alt="image" src="https://github.com/user-attachments/assets/30a1543c-6336-4bde-8896-51a8cb28e714" />
+<img width="1344" height="625" alt="Dark Mode" src="https://github.com/user-attachments/assets/30a1543c-6336-4bde-8896-51a8cb28e714" />
 
 <br><br>
 
@@ -18,7 +18,7 @@ Interactive JSON Tree Viewer built for simple or complex deeply nested JSON stru
 
 <br>
 
-<img width="1317" height="610" alt="image" src="https://github.com/user-attachments/assets/c40c0914-e7a0-48e4-a118-cb832f7dc7d2" />
+<img width="1317" height="610" alt="Light Mode" src="https://github.com/user-attachments/assets/c40c0914-e7a0-48e4-a118-cb832f7dc7d2" />
 
 <br><br>
 
@@ -28,7 +28,7 @@ Interactive JSON Tree Viewer built for simple or complex deeply nested JSON stru
 
 <br>
 
-<img width="1321" height="620" alt="Search Functionality" src="https://github.com/user-attachments/assets/3766bd74-3802-4566-9351-aefdbb10ca93" />
+<img width="1321" height="620" alt="Node customization arrow" src="https://github.com/user-attachments/assets/3766bd74-3802-4566-9351-aefdbb10ca93" />
 
 <br><br>
 
@@ -38,7 +38,7 @@ Interactive JSON Tree Viewer built for simple or complex deeply nested JSON stru
 
 <br>
 
-<img width="1329" height="621" alt=" Large JSON Navigation" src="https://github.com/user-attachments/assets/1a7f3018-02c1-4b3e-b7a5-a7a0a035b7ca" />
+<img width="1329" height="621" alt="Large JSON Navigation" src="https://github.com/user-attachments/assets/1a7f3018-02c1-4b3e-b7a5-a7a0a035b7ca" />
 
 <br><br>
 
@@ -58,7 +58,7 @@ Interactive JSON Tree Viewer built for simple or complex deeply nested JSON stru
 
 <br>
 
-<img width="1319" height="389" alt="Statistics Panel" src="https://github.com/user-attachments/assets/7855764b-7c28-4535-88fa-65644f2247ba" />
+<img width="1319" height="389" alt="Search Functionality" src="https://github.com/user-attachments/assets/7855764b-7c28-4535-88fa-65644f2247ba" />
 
 <br><br>
 
@@ -78,9 +78,10 @@ Interactive JSON Tree Viewer built for simple or complex deeply nested JSON stru
 
 <br>
 
-<img width="1329" height="619" alt="Large JSON Navigation" src="https://github.com/user-attachments/assets/4de5d025-5399-413b-9518-b1359304f62d" />
+<img width="1329" height="619" alt="Deeply Nested JSON Navigation" src="https://github.com/user-attachments/assets/4de5d025-5399-413b-9518-b1359304f62d" />
 
 <br><br>
 
-<img width="1309" height="624" alt="image" src="https://github.com/user-attachments/assets/3a174bfb-4c0c-4f62-badb-fa94878c51c8" />
+<img width="1313" height="634" alt="Deeply Nested JSON Navigation. Light Mode" src="https://github.com/user-attachments/assets/559f47be-785e-4beb-8364-b5fc690ace0e" />
+
 
