@@ -1,6 +1,7 @@
 # Willow
 
-Interactive JSON Tree Viewer built for simple or complex deeply nested JSON structures.
+About
+JSON Tree Viewer for exploring, visualizing, and interacting with JSON structures of any complexity, from simple to deeply nested, focused on usability and customization
 
 ---
 
